@@ -1,0 +1,20 @@
+# Example docker-compose. Copy to compose.yml and edit URLS + CALENDAR_ID + CALENDAR_NAME.
+# Run one service per merged feed you want to publish.
+
+services:
+  ical-merger-ff:
+    image: registry-lynx.max-heidinger.de/ical-merger:latest
+    restart: unless-stopped
+    environment:
+      URLS: >-
+        https://calsync.alamos-gmbh.com/calendar/ical/.../cal.ics,
+        https://calsync.alamos-gmbh.com/calendar/ical/.../cal.ics,
+        https://calsync.alamos-gmbh.com/calendar/ical/.../cal.ics
+      CALENDAR_ID: ff
+      CALENDAR_NAME: Feuerwehr Nußloch Komplett
+      SOURCE_TZ: Europe/Berlin
+      # CACHE_TTL: "900"
+      # HTTP_TIMEOUT: "30"
+    ports:
+      # Feed will be served at http://localhost:3000/ff.ics
+      - "3000:3000"
